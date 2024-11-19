@@ -1,5 +1,4 @@
 import React from 'react'
-import ThemeSwitcher from '@/components/ThemeSwitcher'
 
 const ProfileHomePage = () => {
   return (
