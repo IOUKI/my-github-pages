@@ -20,7 +20,8 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
             </div>
             <div id="hs-navbar-cover-page" className="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block" aria-labelledby="hs-navbar-cover-page-collapse">
               <div className="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5">
-                <a className="font-medium focus:outline-none hover:underline" href="#" aria-current="page">Landing</a>
+                <a className="font-medium focus:outline-none hover:underline" href="#">Home</a>
+                <a className="font-medium focus:outline-none hover:underline" href="#">About</a>
                 <a className="font-medium focus:outline-none hover:underline" href="#">Account</a>
                 <a className="font-medium focus:outline-none hover:underline" href="#">Work</a>
                 <a className="font-medium focus:outline-none hover:underline" href="#">Blog</a>
@@ -29,12 +30,43 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
             </div>
           </nav>
         </header>
-        <main>
+        <main className="min-h-[85vh]">
           {children}
         </main>
-        <footer className="mt-auto text-center py-5">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-sm text-white/70">Cover template for <a className="text-white decoration-2 underline underline-offset-2 font-medium hover:text-gray-200 hover:decoration-white/70 focus:outline-none focus:text-gray-200 focus:decoration-white/70" href="../index.html">Preline</a></p>
+        <footer className="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="py-6 border-t border-gray-200 dark:border-neutral-700">
+            <div className="flex flex-wrap justify-between items-center gap-2">
+              <div>
+                <p className="text-xs text-gray-600 dark:text-neutral-400">
+                  © 2024 Preline Labs.
+                </p>
+              </div>
+              <ul className="flex flex-wrap items-center">
+                <li className="inline-block relative pe-4 text-xs last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-1.5 before:-translate-y-1/2 before:size-[3px] before:rounded-full before:bg-gray-400 dark:text-neutral-500 dark:before:bg-neutral-600">
+                  <a className="text-base text-gray-500 hover:text-gray-800 hover:decoration-2 focus:outline-none focus:decoration-2 dark:text-neutral-500 dark:hover:text-neutral-400" href="https://www.instagram.com/lan_bluendama/" target="_blank" rel="noopener noreferrer">
+                    <i className="bi bi-instagram"></i>
+                  </a>
+                </li>
+                <li className="inline-block relative pe-4 text-xs last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-1.5 before:-translate-y-1/2 before:size-[3px] before:rounded-full before:bg-gray-400 dark:text-neutral-500 dark:before:bg-neutral-600">
+                  <a className="text-base text-gray-500 hover:text-gray-800 hover:decoration-2 focus:outline-none focus:decoration-2 dark:text-neutral-500 dark:hover:text-neutral-400" href="https://tw.linkedin.com/in/%E7%A8%8B%E5%87%B1-%E5%BC%B5-9b971a28b?trk=people-guest_people_search-card" target="_blank" rel="noopener noreferrer">
+                    <i className="bi bi-linkedin"></i>
+                  </a>
+                </li>
+                <li className="inline-block pe-4 text-xs">
+                  <a className="text-base text-gray-500 hover:text-gray-800 hover:decoration-2 focus:outline-none focus:decoration-2 dark:text-neutral-500 dark:hover:text-neutral-400" href="https://github.com/IOUKI" target="_blank" rel="noopener noreferrer">
+                    <i className="bi bi-github"></i>
+                  </a>
+                </li>
+                <li className="inline-block pe-4 text-xs">
+                  <a className="text-base text-gray-500 hover:text-gray-800 hover:decoration-2 focus:outline-none focus:decoration-2 dark:text-neutral-500 dark:hover:text-neutral-400" href="mailto:quw112233456@gmail.com">
+                    <i className="bi bi-envelope-fill"></i>
+                  </a>
+                </li>
+                <li className="inline-block">
+                  <ThemeSwitcher />
+                </li>
+              </ul>
+            </div>
           </div>
         </footer>
       </div>
