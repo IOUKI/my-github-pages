@@ -30,7 +30,7 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
             </div>
           </nav>
         </header>
-        <main className="min-h-[85vh]">
+        <main className="min-h-[80vh]">
           {children}
         </main>
         <footer className="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
