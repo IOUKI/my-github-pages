@@ -98,10 +98,16 @@ const useGameState = () => {
     }
   }, [board, isPlayerTurn, winner])
 
+  // 重設遊戲
+  const resetGame = () => {
+    setBoard(Array(9).fill(null))
+    setHistory({ X: [], O: [] })
+    setIsPlayerTurn(true)
+  }
+
   // 找到即將消失的標記
   const getPendingRemovalIndex = (history: { X: number[], O: number[] }, currentMark: 'X' | 'O') => {
     if (currentMark === 'X' && history.X.length >= 3) {
-      console.log("return last x index: ", history.X[0])
       return history.X[0] // 返回最舊的 X 標記索引
     } else if (currentMark === 'O' && history.O.length >= 3) {
       return history.O[0] // 返回最舊的 O 標記索引
@@ -109,11 +115,15 @@ const useGameState = () => {
     return -1 // 沒有即將消失的標記
   }
 
-  return { board, handleClick, winner, getPendingRemovalIndex, history }
+  return { board, handleClick, winner, getPendingRemovalIndex, history, resetGame }
 }
 
 const Page = () => {
-  const { board, handleClick, winner, getPendingRemovalIndex, history } = useGameState()
+  const { board, handleClick, winner, getPendingRemovalIndex, history, resetGame } = useGameState()
+
+  // 找到即將消失的標記索引
+  const pendingRemovalIndexX = getPendingRemovalIndex(history, 'X')
+  const pendingRemovalIndexO = getPendingRemovalIndex(history, 'O')
 
   useEffect(() => {
     if (winner) {
@@ -125,13 +135,22 @@ const Page = () => {
     <div className="w-full flex justify-center">
       <div>
         <h1>圈圈叉叉遊戲</h1>
-        <div className="grid grid-cols-3 gap-1 w-[500px] h-[500px] bg-slate-900 dark:bg-white">
+        <div className="grid grid-cols-3 gap-2 lg:gap-1 w-64 h-64 lg:w-[500px] lg:h-[500px] bg-slate-900 dark:bg-white">
           {board.map((value, index) => {
-            const isPendingRemoval = getPendingRemovalIndex(history, value as 'X' | 'O') === index
+            // 判斷該格是否是即將消失的標記
+            let isPendingRemoval = false
+            if (value === 'X' && index === pendingRemovalIndexX) {
+              isPendingRemoval = true
+            } else if (value === 'O' && index === pendingRemovalIndexO) {
+              isPendingRemoval = true
+            }
+
             return (
               <div
                 key={index}
-                className={`flex items-center justify-center text-3xl font-black cursor-pointer ${isPendingRemoval ? 'text-red-500' : ''} bg-white dark:bg-slate-900`}
+                className={`flex items-center justify-center text-3xl font-black bg-white dark:bg-slate-900 cursor-pointer ${
+                  isPendingRemoval ? 'text-red-500' : ''
+                }`} // 根據是否即將消失來改變顏色
                 onClick={() => handleClick(index)} // 點擊格子時更新狀態
               >
                 &nbsp;{value}&nbsp;
@@ -139,6 +158,12 @@ const Page = () => {
             )
           })}
         </div>
+        <button 
+          className="mt-4 p-2 bg-blue-500 text-white rounded"
+          onClick={resetGame}
+        >
+          重新開始遊戲
+        </button>
       </div>
     </div>
   )
