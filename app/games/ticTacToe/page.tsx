@@ -20,7 +20,7 @@ const checkWinner = (board: (string | null)[]) => {
   return null // 沒有勝利者
 }
 
-// 尋找最佳格子：阻擋玩家或選擇最有利的格子
+// 尋找最佳格子：優先選擇勝利位置，然後是阻擋玩家，最後隨機選擇
 const findBestMove = (board: (string | null)[]) => {
   const lines = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8],  // 橫向
@@ -28,27 +28,27 @@ const findBestMove = (board: (string | null)[]) => {
     [0, 4, 8], [2, 4, 6]              // 斜向
   ]
 
-  // 檢查是否有需要阻擋玩家的格子
-  for (const line of lines) {
-    const [a, b, c] = line
-    const values = [board[a], board[b], board[c]]
-    if (values.filter(v => v === 'X').length === 2 && values.includes(null)) {
-      return line[values.indexOf(null)] // 返回玩家快贏時的空格以阻擋
-    }
-  }
-
-  // 檢查是否有讓自己接近勝利的格子
+  // 1. 檢查是否可以讓自己勝利
   for (const line of lines) {
     const [a, b, c] = line
     const values = [board[a], board[b], board[c]]
     if (values.filter(v => v === 'O').length === 2 && values.includes(null)) {
-      return line[values.indexOf(null)] // 返回讓自己接近勝利的空格
+      return line[values.indexOf(null)] // 返回讓自己勝利的空格
     }
   }
 
-  // 隨機選擇剩下的空格
+  // 2. 檢查是否需要阻擋玩家的勝利
+  for (const line of lines) {
+    const [a, b, c] = line
+    const values = [board[a], board[b], board[c]]
+    if (values.filter(v => v === 'X').length === 2 && values.includes(null)) {
+      return line[values.indexOf(null)] // 返回阻擋玩家的空格
+    }
+  }
+
+  // 3. 隨機選擇剩下的空格
   const availableMoves = board.map((value, index) => value === null ? index : -1).filter(index => index !== -1)
-  return availableMoves[Math.floor(Math.random() * availableMoves.length)]
+  return availableMoves[Math.floor(Math.random() * availableMoves.length)] // 隨機選擇
 }
 
 // 使用這個 hook 來管理遊戲狀態
@@ -124,12 +124,6 @@ const Page = () => {
   // 找到即將消失的標記索引
   const pendingRemovalIndexX = getPendingRemovalIndex(history, 'X')
   const pendingRemovalIndexO = getPendingRemovalIndex(history, 'O')
-
-  // useEffect(() => {
-  //   if (winner) {
-  //     alert(`${winner === 'X' ? '玩家' : '電腦'} 勝利！`)
-  //   }
-  // }, [winner])
 
   return (
     <div className="w-full flex justify-center">
