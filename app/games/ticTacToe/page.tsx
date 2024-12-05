@@ -125,16 +125,31 @@ const Page = () => {
   const pendingRemovalIndexX = getPendingRemovalIndex(history, 'X')
   const pendingRemovalIndexO = getPendingRemovalIndex(history, 'O')
 
-  useEffect(() => {
-    if (winner) {
-      alert(`${winner === 'X' ? '玩家' : '電腦'} 勝利！`)
-    }
-  }, [winner])
+  // useEffect(() => {
+  //   if (winner) {
+  //     alert(`${winner === 'X' ? '玩家' : '電腦'} 勝利！`)
+  //   }
+  // }, [winner])
 
   return (
     <div className="w-full flex justify-center">
       <div>
-        <h1>圈圈叉叉遊戲</h1>
+        <div className="flex justify-between">
+          {winner === 'X' && (
+            <h1 className="text-yellow-400 text-5xl">玩家勝利！</h1>
+          )}
+          {winner === 'O' && (
+            <h1 className="text-yellow-400 text-5xl">電腦勝利！</h1>
+          )}
+          {winner && (
+            <button
+              className="mt-4 p-2 bg-blue-500 text-white rounded"
+              onClick={resetGame}
+            >
+              重新開始遊戲
+            </button>
+          )}
+        </div>
         <div className="grid grid-cols-3 gap-2 lg:gap-1 w-64 h-64 lg:w-[500px] lg:h-[500px] bg-slate-900 dark:bg-white">
           {board.map((value, index) => {
             // 判斷該格是否是即將消失的標記
@@ -144,13 +159,11 @@ const Page = () => {
             } else if (value === 'O' && index === pendingRemovalIndexO) {
               isPendingRemoval = true
             }
-
             return (
               <div
                 key={index}
-                className={`flex items-center justify-center text-3xl font-black bg-white dark:bg-slate-900 cursor-pointer ${
-                  isPendingRemoval ? 'text-red-500' : ''
-                }`} // 根據是否即將消失來改變顏色
+                className={`flex items-center justify-center text-3xl font-black bg-white dark:bg-slate-900 cursor-pointer ${isPendingRemoval ? 'text-red-500' : ''
+                  }`} // 根據是否即將消失來改變顏色
                 onClick={() => handleClick(index)} // 點擊格子時更新狀態
               >
                 &nbsp;{value}&nbsp;
@@ -158,12 +171,6 @@ const Page = () => {
             )
           })}
         </div>
-        <button 
-          className="mt-4 p-2 bg-blue-500 text-white rounded"
-          onClick={resetGame}
-        >
-          重新開始遊戲
-        </button>
       </div>
     </div>
   )
