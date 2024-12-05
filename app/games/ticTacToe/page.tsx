@@ -9,14 +9,14 @@ const checkWinner = (board: (string | null)[]) => {
     [0, 3, 6], [1, 4, 7], [2, 5, 8],  // 縱向
     [0, 4, 8], [2, 4, 6]              // 斜向
   ]
-  
+
   for (const line of lines) {
     const [a, b, c] = line
     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
       return board[a]  // 返回勝利者 'X' 或 'O'
     }
   }
-  
+
   return null // 沒有勝利者
 }
 
@@ -55,7 +55,7 @@ const findBestMove = (board: (string | null)[]) => {
 const useGameState = () => {
   const [board, setBoard] = useState<Array<string | null>>(Array(9).fill(null)) // 用 null 來表示每個格子都還沒選擇
   const [isPlayerTurn, setIsPlayerTurn] = useState(true) // 玩家先攻
-  const [history, setHistory] = useState<{X: number[], O: number[]}>( {X: [], O: []} ) // 儲存 X 和 O 的歷史格子
+  const [history, setHistory] = useState<{ X: number[], O: number[] }>({ X: [], O: [] }) // 儲存 X 和 O 的歷史格子
 
   // 判斷是否有勝利者
   const winner = checkWinner(board)
@@ -98,11 +98,22 @@ const useGameState = () => {
     }
   }, [board, isPlayerTurn, winner])
 
-  return { board, handleClick, winner }
+  // 找到即將消失的標記
+  const getPendingRemovalIndex = (history: { X: number[], O: number[] }, currentMark: 'X' | 'O') => {
+    if (currentMark === 'X' && history.X.length >= 3) {
+      console.log("return last x index: ", history.X[0])
+      return history.X[0] // 返回最舊的 X 標記索引
+    } else if (currentMark === 'O' && history.O.length >= 3) {
+      return history.O[0] // 返回最舊的 O 標記索引
+    }
+    return -1 // 沒有即將消失的標記
+  }
+
+  return { board, handleClick, winner, getPendingRemovalIndex, history }
 }
 
 const Page = () => {
-  const { board, handleClick, winner } = useGameState()
+  const { board, handleClick, winner, getPendingRemovalIndex, history } = useGameState()
 
   useEffect(() => {
     if (winner) {
@@ -114,16 +125,19 @@ const Page = () => {
     <div className="w-full flex justify-center">
       <div>
         <h1>圈圈叉叉遊戲</h1>
-        <div className="grid grid-cols-3 gap-2 w-64 h-64 bg-slate-900 dark:bg-white">
-          {board.map((value, index) => (
-            <div
-              key={index}
-              className="flex items-center justify-center h-20 bg-white dark:bg-slate-900 cursor-pointer"
-              onClick={() => handleClick(index)} // 點擊格子時更新狀態
-            >
-              {value}
-            </div>
-          ))}
+        <div className="grid grid-cols-3 gap-1 w-[500px] h-[500px] bg-slate-900 dark:bg-white">
+          {board.map((value, index) => {
+            const isPendingRemoval = getPendingRemovalIndex(history, value as 'X' | 'O') === index
+            return (
+              <div
+                key={index}
+                className={`flex items-center justify-center text-3xl font-black cursor-pointer ${isPendingRemoval ? 'text-red-500' : ''} bg-white dark:bg-slate-900`}
+                onClick={() => handleClick(index)} // 點擊格子時更新狀態
+              >
+                &nbsp;{value}&nbsp;
+              </div>
+            )
+          })}
         </div>
       </div>
     </div>
