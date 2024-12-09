@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+::-webkit-scrollbar {
+  width: 8px;
+  /* 設定滑條寬度 */
+}
+
+::-webkit-scrollbar-track {
+  /* 設定底色，這裡是淺灰色，可以根據你的網頁背景色調整 */
+  --tw-bg-opacity: 1;
+  background-color: rgb(15 23 42 / var(--tw-bg-opacity))
+    /* #0f172a */
+  ;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #333333;
+  /* 設定滑條顏色為深灰色 */
+  border-radius: 10px;
+  /* 可選，設置滑條圓角 */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555555;
+  /* 滑鼠懸停時，滑條顏色稍微變亮 */
+}
