@@ -1,4 +1,5 @@
 import React from "react"
+import Link from "next/link"
 import PrelineScript from "@/components/PrelineScript"
 import ThemeSwitcher from "@/components/ThemeSwitcher"
 
@@ -9,7 +10,7 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
         <header className="mb-auto flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full text-sm py-4">
           <nav className="w-full px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
             <div className="flex items-center justify-between">
-              <a className="flex-none text-xl font-semibold focus:outline-none focus:opacity-80" href="#" aria-label="Brand">Lan</a>
+              <Link href="/profile" scroll={false} className="flex-none text-xl font-semibold focus:outline-none focus:opacity-80">Lan</Link>
               <div className="sm:hidden">
                 <button type="button" className="hs-collapse-toggle relative size-9 flex justify-center items-center border border-white/10 font-medium text-sm text-gray-200 rounded-lg hover:bg-white/10 focus:outline-none focus:bg-white/10" id="hs-navbar-cover-page-collapse" aria-expanded="false" aria-controls="hs-navbar-cover-page" aria-label="Toggle navigation" data-hs-collapse="#hs-navbar-cover-page">
                   <svg className="hs-collapse-open:hidden shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" x2="21" y1="6" y2="6" /><line x1="3" x2="21" y1="12" y2="12" /><line x1="3" x2="21" y1="18" y2="18" /></svg>
@@ -20,11 +21,9 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
             </div>
             <div id="hs-navbar-cover-page" className="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block" aria-labelledby="hs-navbar-cover-page-collapse">
               <div className="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5">
-                <a className="font-medium focus:outline-none hover:underline" href="#">Home</a>
-                <a className="font-medium focus:outline-none hover:underline" href="#">About</a>
-                <a className="font-medium focus:outline-none hover:underline" href="#">Account</a>
-                <a className="font-medium focus:outline-none hover:underline" href="#">Work</a>
-                <a className="font-medium focus:outline-none hover:underline" href="#">Blog</a>
+                <Link href="/profile" scroll={false} className="font-medium focus:outline-none hover:underline">首頁</Link>
+                <Link href="/profile/about" scroll={false} className="font-medium focus:outline-none hover:underline">關於</Link>
+                <Link href="/games" scroll={false} className="font-medium focus:outline-none hover:underline">遊戲</Link>
                 <div><ThemeSwitcher /></div>
               </div>
             </div>
