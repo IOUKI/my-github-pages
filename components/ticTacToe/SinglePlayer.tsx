@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 // 判斷是否有三個相同的標記連成一條線
 const checkWinner = (board: (string | null)[]) => {
@@ -61,7 +61,7 @@ const useGameState = () => {
   const winner = checkWinner(board)
 
   // 更新格子
-  const handleClick = (index: number) => {
+  const handleClick = useCallback((index: number) => {
     if (board[index] !== null || winner) return  // 如果該格已被標記或遊戲結束則不做處理
 
     const newBoard = [...board]
@@ -88,7 +88,7 @@ const useGameState = () => {
     setBoard(newBoard)
     setHistory(newHistory)
     setIsPlayerTurn(!isPlayerTurn) // 交換回合
-  }
+  }, [board, isPlayerTurn, history, winner])
 
   // 電腦回合
   useEffect(() => {
@@ -96,7 +96,7 @@ const useGameState = () => {
       const bestMove = findBestMove(board) // 尋找最佳格子
       handleClick(bestMove)
     }
-  }, [board, isPlayerTurn, winner])
+  }, [board, isPlayerTurn, winner, handleClick])
 
   // 重設遊戲
   const resetGame = () => {

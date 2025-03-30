@@ -9,7 +9,7 @@ const Home = () => {
   useEffect(() => setIsClient(true), [])
   useEffect(() => {
     if (isClient) router.push('/profile')
-  }, [isClient])
+  }, [isClient, router])
   return null
 }
 
