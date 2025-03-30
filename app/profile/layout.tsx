@@ -24,6 +24,7 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
                 <Link href="/profile" scroll={false} className="font-medium focus:outline-none hover:underline">首頁</Link>
                 <Link href="/profile/about" scroll={false} className="font-medium focus:outline-none hover:underline">關於</Link>
                 <Link href="/games" scroll={false} className="font-medium focus:outline-none hover:underline">遊戲</Link>
+                <Link href="/kendamaTools" scroll={false} className="font-medium focus:outline-none hover:underline">劍玉</Link>
                 <div><ThemeSwitcher /></div>
               </div>
             </div>
