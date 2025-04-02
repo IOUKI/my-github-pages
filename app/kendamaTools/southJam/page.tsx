@@ -58,7 +58,7 @@ const SouthJam = () => {
   return (
     <>
       <div className="w-full px-3 grid grid-cols-2 gap-4">
-        <button type="button" className="py-3 px-4 col-span-2 inline-flex items-center justify-center gap-x-2 text-3xl font-medium rounded-lg border border-transparent bg-white text-black disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="dialog" aria-expanded="false" aria-controls="trick-list-modal" data-hs-overlay="#trick-list-modal">
+        <button type="button" className="py-3 px-4 col-span-2 inline-flex items-center justify-center gap-x-2 text-3xl font-medium rounded-lg border border-transparent bg-black text-white dark:bg-white dark:text-black disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="dialog" aria-expanded="false" aria-controls="trick-list-modal" data-hs-overlay="#trick-list-modal">
           招式列表
         </button>
         <button
@@ -155,8 +155,8 @@ const SouthJam = () => {
                 </svg>
               </button>
             </div>
-            <div className="p-4 overflow-y-auto">
-              <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 dark:border-neutral-700">
+            <div className="p-4 max-h-[70vh] overflow-y-auto">
+              <div className="rounded-lg border border-gray-200 dark:border-neutral-700">
                 <table className="w-full text-left text-sm text-gray-500 dark:text-neutral-400">
                   <thead className="text-xs uppercase bg-gray-50 text-gray-700 dark:bg-neutral-800 dark:text-neutral-400">
                     <tr>
