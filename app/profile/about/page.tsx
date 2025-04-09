@@ -2,7 +2,9 @@ import React from 'react'
 
 const ProfileAboutPage = () => {
   return (
-    <div>ProfileAboutPage</div>
+    <>
+      <h1>當前無內容...</h1>
+    </>
   )
 }
 

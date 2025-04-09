@@ -3,7 +3,7 @@ import React from 'react'
 const ProfileHomePage = () => {
   return (
     <>
-      ProfileHomePage
+      <h1>當前無內容...</h1>
     </>
   )
 }
