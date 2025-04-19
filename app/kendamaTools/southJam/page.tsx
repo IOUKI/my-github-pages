@@ -1,33 +1,90 @@
 'use client'
 
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
+
+type Trick = {
+  no: number
+  content: string
+}
+
+type TrickList = {
+  level: number
+  title: string
+  tricks: Trick[]
+}
 
 const SouthJam = () => {
   const [alreadyDownList, setAlreadyDownList] = useState<number[]>([])
   const [currentTrick, setCurrentTrick] = useState<number | null>(null)
   const [p1Score, setP1Score] = useState<number>(0)
   const [p2Score, setP2Score] = useState<number>(0)
-  const trickList = useMemo(() => [
-    { no: 1, content: "直拉拋一迴旋燈台 insta 拋 1.5 飛行機" },
-    { no: 2, content: "離轉 - 離轉 - 拋一迴旋燈台 - 二迴旋抓劍收" },
-    { no: 3, content: "逆月 - 拋一迴旋燈台 insta 逆一迴旋逆月 - 收劍" },
-    { no: 4, content: "裏鶯 - 離心力戰斧 - 收劍" },
-    { no: 5, content: "大皿 - 大鶯 - 小皿 - 小鶯 - 中皿 - 中皿極意 - 天中殺收" },
-    { no: 6, content: "轉劍世界一周" },
-    { no: 7, content: "Sweets special 企鵝收" },
-    { no: 8, content: "飛行機 - 1.5 逆拋飛行機" },
-    { no: 9, content: "重力機 - 正一迴旋重力機 - 逆一迴旋重力機" },
-    { no: 10, content: "一迴旋竹馬 - 馬上馬 - 抓劍收" },
-    { no: 11, content: "快圓月拋一迴旋燈 - 一迴旋抓劍收" },
-    { no: 12, content: "正月 - 逆月 - 一迴旋正月 - 一迴旋逆月 - 收劍" },
-    { no: 13, content: "落雷一迴旋飛行機" },
-    { no: 14, content: "2 Tap 拋兩迴旋拋接止劍" },
-    { no: 15, content: "嬉皮敲一迴旋飛行機" },
+  const [currentTricks, setCurrentTricks] = useState<Trick[]>([])
+  const [currentTricksLevel, setCurrentTricksLevel] = useState<number>(1)
+  const trickList = useMemo<TrickList[]>(() => [
+    {
+      level: 1,
+      title: "初階",
+      tricks: [
+        { no: 1, content: "蠟燭" },
+        { no: 2, content: "皿上來回 11 下" },
+        { no: 3, content: "飛行機 - 跳劍" },
+        { no: 4, content: "止劍 - 螺旋丸止劍" },
+        { no: 5, content: "大鶯 - 收劍" },
+        { no: 6, content: "劍頂 - 收劍" },
+        { no: 7, content: "世界一周" },
+        { no: 8, content: "大皿 - 燕子歸巢大皿 - 止劍" },
+        { no: 9, content: "劍手手勢直接地球" },
+        { no: 10, content: "轉劍止劍" },
+        { no: 11, content: "▲天中殺" },
+        { no: 12, content: "▲重力機" },
+        { no: 13, content: "▲燈台 - 收劍" },
+      ]
+    },
+    {
+      level: 2,
+      title: "中階",
+      tricks: [
+        { no: 1, content: "美國一週" },
+        { no: 2, content: "離轉地球" },
+        { no: 3, content: "劍頂滑玉" },
+        { no: 4, content: "飛行機 - 1.5 拋接止劍" },
+        { no: 5, content: "月面 - 一迴旋收" },
+        { no: 6, content: "飛行機 - TAP 收" },
+        { no: 7, content: "燈台 - 燈上燈 - 收劍" },
+        { no: 8, content: "中皿極意 - 收劍" },
+        { no: 9, content: "JUGGLE 大皿 - 止劍" },
+        { no: 10, content: "一迴旋拋接天中殺" },
+        { no: 11, content: "▲抽線飛行機" },
+        { no: 12, content: "▲竹馬 - 止劍" },
+        { no: 13, content: "▲天中殺快手飛行機" },
+      ]
+    },
+    {
+      level: 3,
+      title: "高階",
+      tricks: [
+        { no: 1, content: "直拉拋一迴旋燈台 insta 拋 1.5 飛行機" },
+        { no: 2, content: "離轉 - 離轉 - 拋一迴旋燈台 - 二迴旋抓劍收" },
+        { no: 3, content: "逆月 - 拋一迴旋燈台 insta 逆一迴旋逆月 - 收劍" },
+        { no: 4, content: "裏鶯 - 離心力戰斧 - 收劍" },
+        { no: 5, content: "大皿 - 大鶯 - 小皿 - 小鶯 - 中皿 - 中皿極意 - 天中殺收" },
+        { no: 6, content: "轉劍世界一周" },
+        { no: 7, content: "Sweets special 企鵝收" },
+        { no: 8, content: "飛行機 - 1.5 逆拋飛行機" },
+        { no: 9, content: "重力機 - 正一迴旋重力機 - 逆一迴旋重力機" },
+        { no: 10, content: "一迴旋竹馬 - 馬上馬 - 抓劍收" },
+        { no: 11, content: "快圓月拋一迴旋燈 - 一迴旋抓劍收" },
+        { no: 12, content: "正月 - 逆月 - 一迴旋正月 - 一迴旋逆月 - 收劍" },
+        { no: 13, content: "落雷一迴旋飛行機" },
+        { no: 14, content: "2 Tap 拋兩迴旋拋接止劍" },
+        { no: 15, content: "嬉皮敲一迴旋飛行機" },
+      ]
+    }
   ], [])
 
   // Handle the lottery action
   const handleLottery = () => {
-    const availableTricks = trickList.filter(trick => !alreadyDownList.includes(trick.no))
+    const availableTricks = currentTricks.filter(trick => !alreadyDownList.includes(trick.no))
     if (availableTricks.length === 0) {
       alert("所有招式已經抽完了！")
       return
@@ -55,8 +112,35 @@ const SouthJam = () => {
     }
   }
 
+  useEffect(() => {
+    if (currentTricks.length !== 0) return
+    const savedLevel = localStorage.getItem('trickLevel')
+    const initialLevel = savedLevel ? parseInt(savedLevel, 10) : 1
+    const selectedLevel = trickList.find(trick => trick.level === initialLevel)
+    if (selectedLevel) {
+      setCurrentTricks(selectedLevel.tricks)
+      setCurrentTricksLevel(selectedLevel.level)
+    }
+  }, [currentTricks, setCurrentTricks, trickList, setCurrentTricksLevel])
+
   return (
     <>
+      <div className="w-full px-3 mb-5 grid grid-cols-3 gap-3">
+        {trickList.map((trick) => (
+          <button
+            key={trick.level}
+            onClick={() => {
+              setCurrentTricks(trick.tricks)
+              setCurrentTricksLevel(trick.level)
+              handleReset()
+              localStorage.setItem('trickLevel', String(trick.level))
+            }}
+            className={`py-3 px-4 inline-flex items-center justify-center gap-x-2 text-3xl font-medium rounded-lg border border-transparent ${currentTricksLevel === trick.level ? 'bg-neutral-800 text-yellow-400' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'}`}
+          >
+            {trick.title}
+          </button>
+        ))}
+      </div>
       <div className="w-full px-3 grid grid-cols-2 gap-4">
         <button type="button" className="py-3 px-4 col-span-2 inline-flex items-center justify-center gap-x-2 text-3xl font-medium rounded-lg border border-transparent bg-black text-white dark:bg-white dark:text-black disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="dialog" aria-expanded="false" aria-controls="trick-list-modal" data-hs-overlay="#trick-list-modal">
           招式列表
@@ -124,7 +208,7 @@ const SouthJam = () => {
             </p>
             <div className="bg-slate-800 rounded-lg p-4">
               <p className="text-3xl font-semibold text-center text-white">
-                {trickList.find(trick => trick.no === currentTrick)?.content}
+                {currentTricks.find(trick => trick.no === currentTrick)?.content}
               </p>
             </div>
           </div>
@@ -136,7 +220,7 @@ const SouthJam = () => {
         <h2 className="text-lg font-semibold">已經抽過的招式：</h2>
         <ul className="list-disc pl-5">
           {alreadyDownList.map((trickNo) => (
-            <li key={trickNo} className="">{trickList.find(trick => trick.no === trickNo)?.content}</li>
+            <li key={trickNo} className="">{currentTricks.find(trick => trick.no === trickNo)?.content}</li>
           ))}
         </ul>
       </div>
@@ -165,7 +249,7 @@ const SouthJam = () => {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200 dark:bg-neutral-800 dark:divide-neutral-700">
-                    {trickList.map((trick) => (
+                    {currentTricks.map((trick) => (
                       <tr key={trick.no} className={`hover:bg-gray-50 dark:hover:bg-neutral-700 ${alreadyDownList.includes(trick.no) ? 'bg-gray-100 dark:bg-neutral-600' : ''}`}>
                         <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{trick.no}</td>
                         <td className="px-6 py-4 dark:text-white">{trick.content}</td>
