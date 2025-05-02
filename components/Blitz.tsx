@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import Confetti from 'react-confetti-boom';
 
 type Player = 'blue' | 'red'
 
 const BlitzGameScreen = () => {
   const [gameStart, setGameStart] = useState<boolean>(false)
-  const [blueSecond, setBlueSecond] = useState<number>(10)
-  const [redSecond, setRedSecond] = useState<number>(10)
+  const [blueSecond, setBlueSecond] = useState<number>(3)
+  const [redSecond, setRedSecond] = useState<number>(3)
   const [player, setPlayer] = useState<Player | null>(null)
   const [winner, setWinner] = useState<Player | null>(null)
 
@@ -91,6 +92,8 @@ const BlitzGameScreen = () => {
           onClick={handleGameover}
           className={`${winner === 'red' ? 'bg-red-500' : 'bg-blue-500'} fixed top-0 left-0 w-screen h-screen select-none`}
         >
+          <Confetti mode="boom" particleCount={200} colors={[winner === 'blue' ? '#ef4444' : '#3b82f6']} />
+          <Confetti mode="fall" particleCount={100} colors={['#E0E0E0', '#FFAAD5', '#2894FF', '#ef4444', '#28FF28', '#FFFF37']} />
           <div className="w-full h-full flex justify-center items-center">
             <div className="grid grid-cols-1 gap-3 text-center">
               <span className="text-9xl">
