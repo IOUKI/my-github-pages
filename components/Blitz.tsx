@@ -5,8 +5,8 @@ type Player = 'blue' | 'red'
 
 const BlitzGameScreen = () => {
   const [gameStart, setGameStart] = useState<boolean>(false)
-  const [blueSecond, setBlueSecond] = useState<number>(3)
-  const [redSecond, setRedSecond] = useState<number>(3)
+  const [blueSecond, setBlueSecond] = useState<number>(60)
+  const [redSecond, setRedSecond] = useState<number>(60)
   const [player, setPlayer] = useState<Player | null>(null)
   const [winner, setWinner] = useState<Player | null>(null)
 
