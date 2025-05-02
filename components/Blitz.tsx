@@ -92,11 +92,22 @@ const BlitzGameScreen = () => {
           onClick={handleGameover}
           className={`${winner === 'red' ? 'bg-red-500' : 'bg-blue-500'} fixed top-0 left-0 w-screen h-screen select-none`}
         >
-          <Confetti mode="boom" particleCount={200} colors={[winner === 'blue' ? '#ef4444' : '#3b82f6']} />
-          <Confetti mode="fall" particleCount={100} colors={['#E0E0E0', '#FFAAD5', '#2894FF', '#ef4444', '#28FF28', '#FFFF37']} />
+          <Confetti
+            mode="boom"
+            particleCount={500}
+            shapeSize={30}
+            deg={270}
+            effectCount={Infinity}
+            effectInterval={3000}
+            spreadDeg={30}
+            x={0.5}
+            y={0.9}
+            launchSpeed={5}
+            colors={['#E0E0E0', '#FFAAD5', '#2894FF', '#ef4444', '#28FF28', '#FFFF37']}
+          />
           <div className="w-full h-full flex justify-center items-center">
             <div className="grid grid-cols-1 gap-3 text-center">
-              <span className="text-9xl">
+              <span className="text-5xl">
                 {winner === 'blue' ? '藍' : '紅'}方勝利
               </span>
               <span className="text-2xl">點擊繼續</span>
