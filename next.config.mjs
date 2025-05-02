@@ -8,7 +8,8 @@ const nextConfig = {
     distDir: 'dist',
     images: {
         unoptimized: true,
-    }
+    },
+    assetPrefix: isProd ? '/my-github-pages/' : '',
 };
 
 export default nextConfig;
