@@ -9,7 +9,6 @@ const nextConfig = {
     images: {
         unoptimized: true,
     },
-    assetPrefix: isProd ? '/my-github-pages/' : '',
 };
 
 export default nextConfig;

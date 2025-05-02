@@ -12,7 +12,7 @@ export default function GamesLayout({ children }: { children: React.ReactNode })
           <div className="w-full flex justify-between">
             <div className="p-3">
               <Link href="/kendamaTools" className="text-xl flex items-center">
-                <Image src="/kendama.png" alt="kendama" width={30} height={30} />
+                <Image src="./kendama.png" alt="kendama" width={30} height={30} />
                 <span>劍玉</span>
               </Link>
             </div>
