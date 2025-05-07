@@ -42,13 +42,13 @@ const CounterPage = () => {
       <div className="grid grid-cols-3 gap-2 w-64">
         <button
           onClick={reset}
-          className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+          className="px-4 py-2 bg-red-500 text-white text-4xl rounded-lg hover:bg-red-600"
         >
           <i className="bi bi-arrow-counterclockwise"></i>
         </button>
         <button
           onClick={increment}
-          className="px-4 py-2 col-span-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+          className="px-4 py-2 col-span-2 bg-blue-500 text-white text-4xl rounded-lg hover:bg-blue-600"
         >
           <i className="bi bi-plus-lg"></i>
         </button>
