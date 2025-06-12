@@ -89,7 +89,12 @@ const SouthJam = () => {
       alert("所有招式已經抽完了！")
       return
     }
-    const randomIndex = Math.floor(Math.random() * availableTricks.length)
+    // 生成一個 UInt32Array 陣列，裡面包含一個密碼學安全的隨機數
+    const randomBuffer = new Uint32Array(1);
+    window.crypto.getRandomValues(randomBuffer);
+
+    // 使用這個隨機數來計算索引
+    const randomIndex = randomBuffer[0] % availableTricks.length;
     const selectedTrick = availableTricks[randomIndex]
     setAlreadyDownList([...alreadyDownList, selectedTrick.no])
     setCurrentTrick(selectedTrick.no)
@@ -233,7 +238,7 @@ const SouthJam = () => {
               </h3>
               <button type="button" className="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-neutral-400 dark:focus:bg-neutral-600" aria-label="Close" data-hs-overlay="#trick-list-modal">
                 <span className="sr-only">Close</span>
-                <svg className="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg className="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M18 6 6 18"></path>
                   <path d="m6 6 12 12"></path>
                 </svg>
